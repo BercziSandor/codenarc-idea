@@ -1,5 +1,6 @@
 plugins {
-    id 'org.jetbrains.intellij' version '1.15.0'
+    id 'org.jetbrains.intellij.platform' version '2.5.0'
+    id 'org.jetbrains.intellij.platform.migration' version '2.5.0'
     id 'java'
     id 'idea'
     id 'groovy'
@@ -8,13 +9,13 @@ plugins {
 
 if (!project.hasProperty('publishPluginChannels')) ext.publishPluginChannels = ''
 if (!project.hasProperty('publishPluginToken')) ext.publishPluginToken = '**UNDEFINED**'
-if (!project.hasProperty('ideVersion')) ext.ideVersion = 'IC-2023.2'
+if (!project.hasProperty('ideVersion')) ext.ideVersion = 'IC-2024.3.3'
 
 wrapper {
-    gradleVersion = '8.0.2'
+    gradleVersion = '8.6'
     distributionType = Wrapper.DistributionType.ALL
     // Checksums are found here: https://gradle.org/release-checksums/
-    distributionSha256Sum = '47a5bfed9ef814f90f8debcbbb315e8e7c654109acd224595ea39fca95c5d4da'
+    distributionSha256Sum = 'fba8464465835e74f7270bbf43d6d8a8d7709ab0a43ce1aa3323f73e9aa0c612'
 }
 
 group 'org.codenarc.idea'
@@ -22,13 +23,20 @@ version "${pluginVersion}"
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+//        releases()
+//        marketplace()
+        defaultRepositories()
+    }
+    mavenLocal()
+    maven { url "https://maven.rsg-services.at/maven-private" }
 }
 
-idea {
-    project {
-        jdkName = '17'
-    }
-}
+//idea {
+//    project {
+//        jdkName = '17'
+//    }
+//}
 
 sourceSets.create 'generator', {
     compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
@@ -39,15 +47,38 @@ sourceSets.create 'generator', {
 }
 
 configurations {
-    implementation  {
+    implementation {
         exclude group: 'org.slf4j', module: 'slf4j-api'
     }
 
     generatorImplementation.extendsFrom compile, implementation, runtimeOnly
 }
 
+// Configure Gradle IntelliJ Plugin
+// Read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin.html
 dependencies {
-    compileOnly( 'org.apache.groovy:groovy') {
+    // https://plugins.jetbrains.com/docs/intellij/creating-plugin-project.html#components-of-a-wizard-generated-gradle-intellij-platform-plugin
+    intellijPlatform {
+        intellijIdeaCommunity('2024.3.3')
+        // plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
+//        def platformPlugins = providers.gradleProperty("platformPlugins").orNull?.split(',') ?: []
+//        platformPlugins?.each { pluginId ->
+//            plugins {
+//                id pluginId // Assuming each plugin ID is valid and follows the correct format
+//            }
+//        }
+        bundledPlugin("org.intellij.groovy")
+
+        def type = providers.gradleProperty('platformType')
+        def version = providers.gradleProperty('platformVersion')
+        create(type, version)
+//        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
+//        bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
+//        plugin("CodeNarc:6.0.0")
+//        plugin 'org.intellij.scala', '2024.1.4'
+
+    }
+    compileOnly('org.apache.groovy:groovy') {
         version {
             strictly "$groovyVersion"
         }
@@ -73,14 +104,14 @@ dependencies {
     }
 
     testImplementation 'com.agorapulse.testing:fixt:0.2.1.1'
-    testImplementation( 'org.apache.groovy:groovy') {
+    testImplementation('org.apache.groovy:groovy') {
         version {
             strictly "$groovyVersion"
         }
         because 'there are version conflicts when building'
     }
 
-    generatorImplementation( 'org.apache.groovy:groovy') {
+    generatorImplementation('org.apache.groovy:groovy') {
         version {
             strictly "$groovyVersion"
         }
@@ -92,21 +123,28 @@ String idePlatformVersion = "${ideVersion}"
 
 logger.lifecycle("Using IDE version $idePlatformVersion")
 
-intellij {
-    pluginName = 'CodeNarc'
+intellijPlatform {
+    pluginConfiguration {
+        ideaVersion {
+            sinceBuild = "242"
+        }
+        name = 'CodeNarc'
+    }
+    publishing {
 
-    downloadSources = !providers.environmentVariable('CI').forUseAtConfigurationTime().present
-    plugins = ['Groovy', 'gradle', 'java']
+    }
+    signing {
+
+    }
+    pluginVerification {
+
+    }
+//    downloadSources = !providers.environmentVariable('CI').forUseAtConfigurationTime().present
+//    plugins = ['Groovy', 'gradle', 'java']
     version = idePlatformVersion
     instrumentCode = false
 }
 
-publishPlugin {
-    token = publishPluginToken
-    if (publishPluginChannels) {
-        channels = Arrays.asList(publishPluginChannels.split(','))
-    }
-}
 
 runIde {
     jvmArgs "-Xmx2g"
@@ -127,7 +165,7 @@ patchPluginXml {
 }
 
 application {
-    mainClassName = 'org.codenarc.idea.gen.RuleInspectionsGenerator'
+    mainClass = 'org.codenarc.idea.gen.RuleInspectionsGenerator'
 }
 
 run {

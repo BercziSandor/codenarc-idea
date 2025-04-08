@@ -32,7 +32,7 @@ public class BlankLineBeforePackageInspectionTool extends CodeNarcInspectionTool
 
     @Override
     protected @NotNull Collection<LocalQuickFix> getQuickFixesFor(Violation violation, PsiElement violatingElement) {
-        return Collections.singleton(new DeleteElementFix(violatingElement));
+        return Collections.singleton((LocalQuickFix) new DeleteElementFix(violatingElement));
     }
 
 }
