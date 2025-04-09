@@ -285,10 +285,10 @@ public abstract class CodeNarcInspectionTool<R extends AbstractRule> extends Loc
             }
         });
 
-        Set<InspectionSuppressor> suppressors = getSuppressors(element);
+        Set<InspectionSuppressor> suppressors = (Set<InspectionSuppressor>)getSuppressors(element);
         final PsiLanguageInjectionHost injectionHost = InjectedLanguageManager.getInstance(element.getProject()).getInjectionHost(element);
         if (injectionHost != null) {
-            Set<InspectionSuppressor> injectionHostSuppressors = getSuppressors(injectionHost);
+            Set<InspectionSuppressor> injectionHostSuppressors = (Set<InspectionSuppressor>)getSuppressors(injectionHost);
             for (InspectionSuppressor suppressor : injectionHostSuppressors) {
                 addAllSuppressActions(fixes, injectionHost, suppressor, ThreeState.YES, getAlternativeID());
             }
