@@ -24,12 +24,11 @@ version "${pluginVersion}"
 repositories {
     mavenCentral()
     intellijPlatform {
-//        releases()
-//        marketplace()
+        releases()
+        marketplace()
         defaultRepositories()
     }
     mavenLocal()
-    maven { url "https://maven.rsg-services.at/maven-private" }
 }
 
 //idea {
