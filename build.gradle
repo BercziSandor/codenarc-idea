@@ -11,7 +11,7 @@ if (!project.hasProperty('publishPluginToken')) ext.publishPluginToken = '**UNDE
 if (!project.hasProperty('ideVersion')) ext.ideVersion = 'IC-2024.3.3'
 
 wrapper {
-    gradleVersion = '8.6'
+    gradleVersion = '8.13'
     distributionType = Wrapper.DistributionType.ALL
     // Checksums are found here: https://gradle.org/release-checksums/
     distributionSha256Sum = 'fba8464465835e74f7270bbf43d6d8a8d7709ab0a43ce1aa3323f73e9aa0c612'
