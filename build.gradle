@@ -138,6 +138,9 @@ intellijPlatform {
     signing {
     }
     pluginVerification {
+        ideVersions = [
+            idePlatformVersion
+        ]
     }
 //    downloadSources = !providers.environmentVariable('CI').forUseAtConfigurationTime().present
 //    plugins = ['Groovy', 'gradle', 'java']
@@ -155,12 +158,6 @@ publishPlugin {
 
 runIde {
     jvmArgs "-Xmx2g"
-}
-
-runPluginVerifier {
-    ideVersions = [
-            idePlatformVersion
-    ]
 }
 
 patchPluginXml {
