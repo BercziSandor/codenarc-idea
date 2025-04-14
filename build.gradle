@@ -17,8 +17,8 @@ wrapper {
     distributionSha256Sum = 'fba8464465835e74f7270bbf43d6d8a8d7709ab0a43ce1aa3323f73e9aa0c612'
 }
 
-group 'org.codenarc.idea'
-version "${pluginVersion}"
+group = 'org.codenarc.idea'
+version = "${pluginVersion}"
 
 repositories {
     mavenCentral()
@@ -44,7 +44,7 @@ sourceSets.create 'generator', {
 }
 
 configurations {
-    implementation  {
+    implementation {
         exclude group: 'org.slf4j', module: 'slf4j-api'
     }
 
@@ -66,8 +66,8 @@ dependencies {
 //        }
         bundledPlugin("org.intellij.groovy")
 
-        def type = providers.gradleProperty('platformType')
-        def version = providers.gradleProperty('platformVersion')
+        def type = providers.gradleProperty('platformType').orElse("IC").get()
+        def version = providers.gradleProperty('platformVersion').orElse("2024.3.3").get()
         create(type, version)
 //        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
 //        bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
@@ -81,12 +81,14 @@ dependencies {
         }
         because 'there are version conflicts when building'
     }
-    compileOnly( 'org.apache.groovy:groovy') {
+
+    compileOnly('org.apache.groovy:groovy') {
         version {
             strictly "$groovyVersion"
         }
         because 'there are version conflicts when building'
     }
+
     implementation("org.codenarc:CodeNarc:$codenarcVersion") {
         exclude group: 'org.codehaus.groovy'
         exclude group: 'org.appache.groovy'
@@ -107,14 +109,14 @@ dependencies {
     }
 
     testImplementation 'com.agorapulse.testing:fixt:0.2.1.1'
-    testImplementation( 'org.apache.groovy:groovy') {
+    testImplementation('org.apache.groovy:groovy') {
         version {
             strictly "$groovyVersion"
         }
         because 'there are version conflicts when building'
     }
 
-    generatorImplementation( 'org.apache.groovy:groovy') {
+    generatorImplementation('org.apache.groovy:groovy') {
         version {
             strictly "$groovyVersion"
         }
@@ -138,9 +140,10 @@ intellijPlatform {
     signing {
     }
     pluginVerification {
-        ideVersions = [
-            idePlatformVersion
-        ]
+        ideVersion = idePlatformVersion
+        // ideVersions = [
+        //     idePlatformVersion
+        // ]
     }
 //    downloadSources = !providers.environmentVariable('CI').forUseAtConfigurationTime().present
 //    plugins = ['Groovy', 'gradle', 'java']
@@ -161,7 +164,7 @@ runIde {
 }
 
 patchPluginXml {
-    version "${pluginVersion}"
+    version = pluginVersion
     sinceBuild = '223.7571.182'
     untilBuild = null
     changeNotes = file('changelog.html').text
@@ -169,7 +172,7 @@ patchPluginXml {
 }
 
 application {
-    mainClassName = 'org.codenarc.idea.gen.RuleInspectionsGenerator'
+    mainClass = 'org.codenarc.idea.gen.RuleInspectionsGenerator'
 }
 
 run {
