@@ -159,6 +159,12 @@ publishPlugin {
     }
 }
 
+//runPluginVerifier {
+//    ideVersions = [
+//            idePlatformVersion
+//    ]
+//}
+
 runIde {
     jvmArgs "-Xmx2g"
 }
