@@ -18,10 +18,10 @@ jobs:
       - name: Upgrade CodenarcVersion Number
         run: |
           sed -i 's/codenarcVersion.*/codenarcVersion=${{ steps.xpath.outputs.result }}/' gradle.properties
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
-          java-version: 17
+          java-version: 21
           distribution: zulu
       - uses: gradle/gradle-build-action@v2
         name: Regenerate Inspection Tool Classes
