@@ -1,49 +1,49 @@
 package org.codenarc.idea.inspections.design;
 
-import com.intellij.codeInspection.LocalQuickFix;
-import com.intellij.psi.PsiElement;
-import java.util.Collection;
-import java.util.Collections;
-import javax.annotation.Generated;
-import org.codenarc.idea.CodeNarcInspectionTool;
-import org.codenarc.rule.Violation;
-import org.codenarc.rule.design.ImplementationAsTypeRule;
-import org.jetbrains.annotations.NotNull;
+        import com.intellij.codeInspection.LocalQuickFix;
+        import com.intellij.psi.PsiElement;
+        import java.util.Collection;
+        import java.util.Collections;
+        import javax.annotation.Generated;
+        import org.codenarc.idea.CodeNarcInspectionTool;
+        import org.codenarc.rule.Violation;
+        import org.codenarc.rule.design.ImplementationAsTypeRule;
+        import org.jetbrains.annotations.NotNull;
 
-@Generated("You can customize this class at the end of the file or remove this annotation to skip regeneration completely")
-public class ImplementationAsTypeInspectionTool extends CodeNarcInspectionTool<ImplementationAsTypeRule> {
+        @Generated("You can customize this class at the end of the file or remove this annotation to skip regeneration completely")
+        public class ImplementationAsTypeInspectionTool extends CodeNarcInspectionTool<ImplementationAsTypeRule> {
 
-    // this code has been generated from org.codenarc.rule.design.ImplementationAsTypeRule
+            // this code has been generated from org.codenarc.rule.design.ImplementationAsTypeRule
 
-    public static final String GROUP = "Design";
+            public static final String GROUP = "Design";
 
-    public ImplementationAsTypeInspectionTool() {
-        super(new ImplementationAsTypeRule());
-        applyDefaultConfiguration(getRule());
-    }
+            public ImplementationAsTypeInspectionTool() {
+                super(new ImplementationAsTypeRule());
+                applyDefaultConfiguration(getRule());
+            }
 
-    @Override
-    public String getRuleset() {
-        return GROUP;
-    }
-
-
-    public void setApplyToClassNames(String value) {
-        getRule().setApplyToClassNames(value);
-    }
-
-    public String getApplyToClassNames() {
-        return getRule().getApplyToClassNames();
-    }
+            @Override
+            public String getRuleset() {
+                return GROUP;
+            }
 
 
-    public void setDoNotApplyToClassNames(String value) {
-        getRule().setDoNotApplyToClassNames(value);
-    }
+            public void setApplyToClassNames(String value) {
+                getRule().setApplyToClassNames(value);
+            }
 
-    public String getDoNotApplyToClassNames() {
-        return getRule().getDoNotApplyToClassNames();
-    }
+            public String getApplyToClassNames() {
+                return getRule().getApplyToClassNames();
+            }
+
+
+            public void setDoNotApplyToClassNames(String value) {
+                getRule().setDoNotApplyToClassNames(value);
+            }
+
+            public String getDoNotApplyToClassNames() {
+                return getRule().getDoNotApplyToClassNames();
+            }
 
     // custom code can be written after this line and it will be preserved during the regeneration
 
