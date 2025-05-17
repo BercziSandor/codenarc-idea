@@ -1,58 +1,58 @@
 package org.codenarc.idea.inspections.groovyism;
 
-import com.intellij.codeInspection.LocalQuickFix;
-import com.intellij.psi.PsiElement;
-import java.util.Collection;
-import java.util.Collections;
-import javax.annotation.Generated;
-import org.codenarc.idea.CodeNarcInspectionTool;
-import org.codenarc.rule.Violation;
-import org.codenarc.rule.groovyism.ClosureAsLastMethodParameterRule;
-import org.jetbrains.annotations.NotNull;
+        import com.intellij.codeInspection.LocalQuickFix;
+        import com.intellij.psi.PsiElement;
+        import java.util.Collection;
+        import java.util.Collections;
+        import javax.annotation.Generated;
+        import org.codenarc.idea.CodeNarcInspectionTool;
+        import org.codenarc.rule.Violation;
+        import org.codenarc.rule.groovyism.ClosureAsLastMethodParameterRule;
+        import org.jetbrains.annotations.NotNull;
 
-@Generated("You can customize this class at the end of the file or remove this annotation to skip regeneration completely")
-public class ClosureAsLastMethodParameterInspectionTool extends CodeNarcInspectionTool<ClosureAsLastMethodParameterRule> {
+        @Generated("You can customize this class at the end of the file or remove this annotation to skip regeneration completely")
+        public class ClosureAsLastMethodParameterInspectionTool extends CodeNarcInspectionTool<ClosureAsLastMethodParameterRule> {
 
-    // this code has been generated from org.codenarc.rule.groovyism.ClosureAsLastMethodParameterRule
+            // this code has been generated from org.codenarc.rule.groovyism.ClosureAsLastMethodParameterRule
 
-    public static final String GROUP = "Groovyism";
+            public static final String GROUP = "Groovyism";
 
-    public ClosureAsLastMethodParameterInspectionTool() {
-        super(new ClosureAsLastMethodParameterRule());
-        applyDefaultConfiguration(getRule());
-    }
+            public ClosureAsLastMethodParameterInspectionTool() {
+                super(new ClosureAsLastMethodParameterRule());
+                applyDefaultConfiguration(getRule());
+            }
 
-    @Override
-    public String getRuleset() {
-        return GROUP;
-    }
-
-
-    public void setApplyToClassNames(String value) {
-        getRule().setApplyToClassNames(value);
-    }
-
-    public String getApplyToClassNames() {
-        return getRule().getApplyToClassNames();
-    }
+            @Override
+            public String getRuleset() {
+                return GROUP;
+            }
 
 
-    public void setDoNotApplyToClassNames(String value) {
-        getRule().setDoNotApplyToClassNames(value);
-    }
+            public void setApplyToClassNames(String value) {
+                getRule().setApplyToClassNames(value);
+            }
 
-    public String getDoNotApplyToClassNames() {
-        return getRule().getDoNotApplyToClassNames();
-    }
+            public String getApplyToClassNames() {
+                return getRule().getApplyToClassNames();
+            }
 
 
-    public void setIgnoreCallsToMethodNames(String value) {
-        getRule().setIgnoreCallsToMethodNames(value);
-    }
+            public void setDoNotApplyToClassNames(String value) {
+                getRule().setDoNotApplyToClassNames(value);
+            }
 
-    public String getIgnoreCallsToMethodNames() {
-        return getRule().getIgnoreCallsToMethodNames();
-    }
+            public String getDoNotApplyToClassNames() {
+                return getRule().getDoNotApplyToClassNames();
+            }
+
+
+            public void setIgnoreCallsToMethodNames(String value) {
+                getRule().setIgnoreCallsToMethodNames(value);
+            }
+
+            public String getIgnoreCallsToMethodNames() {
+                return getRule().getIgnoreCallsToMethodNames();
+            }
 
     // custom code can be written after this line and it will be preserved during the regeneration
 
